@@ -3,7 +3,7 @@
 **Lansite** is a simple, centralized web application designed for small LAN parties. It serves as an information hub for all attendees.
 
 <p align="center">
-  <img src="https://i.imgur.com/dxLNnED.png" width="366"/>
+  <img src="https://imgur.com/a/SCvyXK6" width="1912"/>
 </p>
 
 ---
@@ -25,7 +25,8 @@
 ### For Programmers
 - Front-end: JavaScript + Bootstrap  
 - Back-end: Node.js, Express, Socket.io, Handlebars, Passport  
-- Fully modular plugin system (“Boxes”) for easy custom extensions  
+- Fully modular plugin system (“Boxes”) for easy custom extensions
+- Premade themes
 
 ---
 
@@ -113,4 +114,15 @@ If you need more robust event management software, consider:
 5. Follow the in-file setup instructions and add your logic  
 6. Copy `boxes/_TemplateBox.js` → `FooBox.js` for server-side logic  
 7. Add your server-side implementation  
-8. Test with:  
+
+---
+
+## Themes
+
+- Blue
+- Black&White
+- DarkBlue&Green
+- Magenta
+- Orange
+- Red
+  
