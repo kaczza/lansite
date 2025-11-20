@@ -4,6 +4,37 @@
 <head>
     {{>head}}
     <title>Lansite</title>
+    <style>
+        /* ====== HEADER / NAVBAR SÖTÉTKÉK ====== */
+        .navbar,
+        header {
+            background: #001f4d !important; /* sötét kék */
+            box-shadow: none !important;
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Az esetleges extra üres hely eltüntetése */
+        body > div:first-child {
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+
+        /* Ha valamilyen wrapper vagy container tolja le a tartalmat */
+        .container:first-of-type {
+            margin-top: 100px !important; /* header miatt helyet hagy */
+        }
+
+        /* Opció: a footer linkek színe is jól látható legyen sötét háttéren */
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
@@ -14,7 +45,7 @@
         {{{body}}}
         <footer class="footer" style="text-align: center;">
             <hr>
-            Lansite by <a href="https://www.tannerkrewson.com/" target="_blank">Tanner Krewson</a>
+            Lansite by <a href="https://github.com/kaczza/" target="_blank">Kacza</a>
             <br/>
             <a href="https://github.com/tannerkrewson/lansite" target="_blank">View on GitHub</a>
             <br/><br/>

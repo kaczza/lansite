@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta charset="UTF-8">
+    <title>Clock Mode</title>
+    <style>
+        body { 
+            display:flex; 
+            justify-content:center; 
+            align-items:center; 
+            height:100vh; 
+            font-size:5em; 
+            margin:0; 
+        }
+    </style>
+</head>
+<body>
+    <div id="clock">--:--:--</div>
+
+    <script>
+        function updateTime(){
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2,'0');
+            const m = String(now.getMinutes()).padStart(2,'0');
+            const s = String(now.getSeconds()).padStart(2,'0');
+            document.getElementById('clock').textContent = h + ':' + m + ':' + s;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+    </script>
+</body>
+</html>

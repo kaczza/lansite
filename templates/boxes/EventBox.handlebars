@@ -1,0 +1,44 @@
+<!--
+  Lansite EventBox HTML Template
+  By Kacza
+-->
+
+<template id="EventBox">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Event Center</h3>
+        </div>
+        <div class="panel-body">
+            <p class="eventboxempty" style="text-align:center">No events are currently available.</p>
+            <div class="events">
+                <!-- Event items will be injected here -->
+            </div><br/>
+            {{#if isOp}}
+            <button class="btn btn-success pull-right eventadd" type="button" data-toggle="modal" data-target="#EventBox-Popup">+ Create Event</button><br/>
+            {{/if}}
+        </div>
+    </div>
+</template>
+
+<template id="EventBox-event">
+    <div class="input-group event">
+        <span class="input-group-addon eventstring" style="width: 100%; text-align: left;">
+            {{title}}
+        </span>
+        <span class="input-group-addon">
+            <button class="btn btn-default dropdown-toggle eventcounter" type="button" id="eventdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{users.length}}
+            </button>
+            <ul class="dropdown-menu eventusers" aria-labelledby="eventdropdown">
+                {{#each users}}
+                <li>{{this.username}}</li>
+                {{/each}}
+            </ul>
+            <button class="btn btn-primary eventjoin" type="button">Join</button>
+            <button class="btn btn-danger eventleave" type="button">Leave</button>
+            <button class="btn btn-secondary eventfull" type="button" disabled hidden>Full</button>
+        </span>
+    </div>
+</template>
+
+<!-- Optional: EventBox JavaScript -->
+<script src="js/boxes/EventBox.js"></script>

@@ -384,6 +384,15 @@ socket.on('areWeOP', function(msg) {
         $('#AdminLink-Button').click(function(){
             window.open('admin', '_blank');
         })
+        mainSidebar.addButton(new Button('EventBoxLink', 'Event Center'));
+        $('#EventBoxLink-Button').click(function(){
+            // Itt az EventBox-ot nyitjuk meg, pl. modal vagy új ablak
+            // Ha modalban van:
+            $('#EventBox-Popup').modal('show');
+
+            // Ha új oldalon van a full EventBox nézet:
+            // window.open('eventbox', '_blank');
+        });
 
         //redraw all boxes with the X
         mainStream.redrawAllBoxes();

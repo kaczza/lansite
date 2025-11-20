@@ -1,6 +1,38 @@
 <div class="row row-offcanvas row-offcanvas-left">
-    {{>sidebar}}
-    <div id="stream" class="col-xs-12 col-sm-9">
-        
-    </div>
+  {{>sidebar}}
+  <div id="stream" class="col-xs-12 col-sm-9">
+    <div id="youtube-video"></div>
+  </div>
 </div>
+
+<script>
+  // Betöltjük a YouTube IFrame API-t
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.head.appendChild(tag);
+
+  var player;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('youtube-video', {
+      height: '315',          // magasság
+      width: '560',           // szélesség
+      videoId: "{{videoId}}", // Handlebars változó
+      playerVars: {
+        autoplay: 1,
+        enablejsapi: 1,
+        controls: 1,          // látható vezérlők
+        modestbranding: 1,
+        rel: 0
+      },
+      events: {
+        onReady: function(event) {
+          event.target.setVolume(100);
+          event.target.playVideo();
+        },
+        onError: function(e) {
+          console.error('YouTube error', e);
+        }
+      }
+    });
+  }
+</script>

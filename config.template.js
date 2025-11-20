@@ -1,12 +1,12 @@
 //
 //  Lansite Config
-//  By Tanner Krewson
+//  By Kacza
 //
 
 var Config = {};
 
 //Web Address: Specify the URL that the server will append to redirects
-Config.url = 'http://localhost';
+Config.url = 'localhost';
 
 //Port: Specify the port in which the server will run off
 Config.port = 3000;
@@ -15,7 +15,10 @@ Config.port = 3000;
 Config.offlineMode = false;
 
 //Steam API Key: Grab one for yourself here: http://steamcommunity.com/dev/apikey
-Config.steamAPIKey = 'YOUR API KEY HERE';
+Config.steamAPIKey = 'YOUR STEAM API HERE';
+
+//If its true then you'll have to generate a code for each person. If its off you can log in with steam
+Config.LoginWithCode = false;
 
 //Auto OP First User: Make the first user that logs into Lansite an admin
 Config.autoOPFirstUser = true;
@@ -26,8 +29,10 @@ Config.developerMode = false;
 //Private Messaging: enable or disable private messaging between users
 Config.privateMessaging = true;
 
-//Connect 4 URL: If you would prefer to host it yourself, https://github.com/tannerkrewson/connect4lansite
-Config.connectFourUrl = 'https://kevinshannon.dev/connect4/';
+//If its true then The admin have to verfy every request(EX.: creating a vote or something like that)
+Config.requireAdminVerification = true;
 
+//if true you can op by username instead of only steam id
+Config.OpByCode = true
 
 module.exports = Config;

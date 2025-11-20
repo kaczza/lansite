@@ -1,0 +1,223 @@
+/* ====== GLOBAL ====== */
+body {
+  padding-top: 60px;
+  /* Dark background with warm, subtle glow (Darker warm brown/black) */
+  background: radial-gradient(circle at 50% 10%, #1c1005, #0a0500 80%);
+  /* Primary highlight/accent color (Vivid Orange) */
+  color: #ff9900;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+a {
+  /* Main link color (Soft Orange) */
+  color: #ffaa4d;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  /* Link hover color (Lighter Orange) */
+  color: #ffc280;
+}
+
+/* ====== HEADER ====== */
+.navbar-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  /* Navbar background (Dark warm gradient) */
+  background: linear-gradient(90deg, #291508, #4a210f);
+  /* Border with orange transparency */
+  border-bottom: 1px solid rgba(255, 130, 70, 0.4);
+  /* Orange glow effect */
+  box-shadow: 0 0 15px rgba(255, 100, 0, 0.3);
+  padding: 15px 25px;
+}
+
+.navbar-brand {
+  font-weight: 800;
+  /* Navbar brand color (Soft Orange) */
+  color: #ffaa4d !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+}
+
+body {
+  padding-top: 80px;
+  /* Background repeated for clarity, but already set above */
+  background: radial-gradient(circle at 50% 10%, #1c1005, #0a0500 80%);
+  /* Default text color (Creamy off-white) */
+  color: #fff5e5;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+
+.navbar, .navbar-default {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+/* ====== LOGIN CONTAINER ====== */
+
+.lead {
+  color: #fffefe!important; /* Pure white lead text */
+}
+
+.jumbotron {
+  /* Jumbotron background (Dark warm gradient) */
+  background: linear-gradient(90deg, #291508, #4a210f);
+  /* Orange glow effect */
+  box-shadow: 0 0 15px rgba(255, 100, 0, 0.3);
+  padding: 0 !important;
+  color: #fffefe;
+}
+.container {
+  max-width: 900px;
+  margin: 80px auto;
+  /* Container background (Dark warm transparent) */
+  background: rgba(40, 20, 10, 0.85);
+  /* Border with orange transparency */
+  border: 1px solid rgba(255, 130, 70, 0.3);
+  /* Stronger orange glow */
+  box-shadow: 0 0 30px rgba(255, 100, 0, 0.3);
+  border-radius: 10px;
+  padding: 40px 50px;
+  text-align: center;
+}
+
+.container h1 {
+  font-size: 2rem;
+  /* Heading color (Soft Orange) */
+  color: #ffaa4d;
+  margin-bottom: 20px;
+}
+
+.container p {
+  /* Subtle text color (Orange transparent) */
+  color: rgba(255, 100, 0, 0.3);
+  font-size: 1rem;
+  margin-bottom: 25px;
+}
+
+#loginUsername,
+#loginCode,#LoginWithCode {
+  /* Input background (Orange transparent) */
+  background: rgba(255, 100, 0, 0.3);
+}
+
+.container img {
+  margin: 15px 0;
+}
+
+/* ====== INPUT FIELDS ====== */
+input[type="text"], input[type="email"],input[type="number"] {
+  /* Input field background (Darker warm transparent) */
+  background-color: rgba(104, 43, 22, 0.9);
+  /* Input border (Light orange transparent) */
+  border: 1px solid rgba(255, 150, 100, 0.3);
+  /* Input text color (Medium Orange) */
+  color: #eb742f;
+  padding: 8px 12px;
+  border-radius: 6px;
+  outline: none;
+  width: 200px;
+  margin: 5px;
+}
+
+input[type="text"],input[type="number"]::placeholder {
+  /* Placeholder color (Pale Orange) */
+  color: #feae75;
+}
+input[type="text"],input[type="number"]:focus {
+  /* Focus border color (Soft Orange) */
+  border-color: #ffaa4d;
+  /* Focus glow (Orange transparent) */
+  box-shadow: 0 0 8px rgba(255, 166, 77, 0.4);
+}
+
+/* ====== BUTTONS ====== */
+button, input[type="submit"] {
+  border: none;
+  /* Primary button color (Vivid Orange) */
+  background:#ef6d29 ;
+  /* Button text color (Set to white for better contrast) */
+  color:#ffffff ;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+button:hover, input[type="submit"]:hover {
+  /* Button hover gradient (Orange to Yellow-Orange) */
+  background: linear-gradient(90deg, #ff8d4a, #ffbb33);
+  transform: translateY(-1px);
+}
+
+
+.btn {
+  /* Secondary button background (Darker Brown/Orange) */
+  background: #7d3104;
+  /* Secondary button text color (Pale Orange) */
+  color: #feae75;
+  /* Secondary button glow (Orange transparent) */
+  box-shadow: 0 0 8px rgba(255, 166, 77, 0.4);
+  /* Secondary button border (Light orange transparent) */
+  border: 1px solid rgba(255, 150, 100, 0.3);
+}
+/* ====== FOOTER ====== */
+footer {
+  margin-top: 60px;
+  text-align: center;
+  /* Footer text color (Soft Orange) */
+  color: #ffa37a;
+  font-size: 0.9rem;
+}
+footer a {
+  /* Footer link color (Soft Orange) */
+  color: #ffaa4d;
+}
+footer a:hover {
+  /* Footer link hover (Lighter Orange) */
+  color: #ffc280;
+}
+
+/* ====== RESPONSIVE ====== */
+@media screen and (max-width: 600px) {
+  .container {
+    margin: 40px 20px;
+    padding: 30px 25px;
+  }
+  input[type="text"], input[type="password"] {
+    width: 100%;
+  }
+}
+
+/* ====== Main menu ====== */
+
+
+.modal-body,.modal-header, .modal-footer {
+  /* Modal background (Dark warm gradient) */
+  background: linear-gradient(90deg, #291508, #4a210f);
+  color: #fffefe!important;
+}
+
+.panel-body,.panel-heading {
+  /* Panel body background (Dark warm gradient) */
+  background: linear-gradient(90deg, #291508, #4a210f);
+  color: #fffefe!important;
+}
+
+.matchboxempty {
+  color: #fff!important;
+}
+
+.panel-panel-default {
+  width: 150px!important;
+}

@@ -1,0 +1,223 @@
+/* ====== GLOBAL ====== */
+body {
+  padding-top: 60px;
+  /* Dark background with subtle purple glow (Near black) */
+  background: radial-gradient(circle at 50% 10%, #1a0b20, #000000 80%);
+  /* Primary highlight/accent color (Bright Magenta/Purple) */
+  color: #d14dff;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+a {
+  /* Main link color (Vibrant Purple/Pink) */
+  color: #e599ff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  /* Link hover color (Lighter Purple/Pink) */
+  color: #f7b3ff;
+}
+
+/* ====== HEADER ====== */
+.navbar-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  /* Navbar background (Dark Purple gradient) */
+  background: linear-gradient(90deg, #220d33, #3a1a4f);
+  /* Border with magenta transparency */
+  border-bottom: 1px solid rgba(255, 100, 255, 0.4);
+  /* Neon purple glow effect */
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+  padding: 15px 25px;
+}
+
+.navbar-brand {
+  font-weight: 800;
+  /* Navbar brand color (Vibrant Purple/Pink) */
+  color: #e599ff !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+}
+
+body {
+  padding-top: 80px;
+  /* Background repeated for clarity, but already set above */
+  background: radial-gradient(circle at 50% 10%, #1a0b20, #000000 80%);
+  /* Default text color (Off-white/light purple tint) */
+  color: #f0eaff;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+
+.navbar, .navbar-default {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+/* ====== LOGIN CONTAINER ====== */
+
+.lead {
+  color: #fffefe!important; /* Pure white lead text */
+}
+
+.jumbotron {
+  /* Jumbotron background (Dark Purple gradient) */
+  background: linear-gradient(90deg, #220d33, #3a1a4f);
+  /* Neon purple glow effect */
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+  padding: 0 !important;
+  color: #fffefe;
+}
+.container {
+  max-width: 900px;
+  margin: 80px auto;
+  /* Container background (Dark Purple transparent) */
+  background: rgba(30, 10, 50, 0.85);
+  /* Border with purple transparency */
+  border: 1px solid rgba(150, 50, 255, 0.3);
+  /* Stronger neon glow */
+  box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+  border-radius: 10px;
+  padding: 40px 50px;
+  text-align: center;
+}
+
+.container h1 {
+  font-size: 2rem;
+  /* Heading color (Vibrant Purple/Pink) */
+  color: #e599ff;
+  margin-bottom: 20px;
+}
+
+.container p {
+  /* Subtle text color (Purple transparent) */
+  color: rgba(255, 0, 255, 0.3);
+  font-size: 1rem;
+  margin-bottom: 25px;
+}
+
+#loginUsername,
+#loginCode,#LoginWithCode {
+  /* Input background (Purple transparent) */
+  background: rgba(150, 50, 255, 0.3);
+}
+
+.container img {
+  margin: 15px 0;
+}
+
+/* ====== INPUT FIELDS ====== */
+input[type="text"], input[type="email"],input[type="number"] {
+  /* Input field background (Darker purple transparent) */
+  background-color: rgba(60, 22, 104, 0.9);
+  /* Input border (Light purple transparent) */
+  border: 1px solid rgba(200, 100, 255, 0.3);
+  /* Input text color (Medium Purple) */
+  color: #a653ff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  outline: none;
+  width: 200px;
+  margin: 5px;
+}
+
+input[type="text"],input[type="number"]::placeholder {
+  /* Placeholder color (Pale Purple) */
+  color: #c9a7ff;
+}
+input[type="text"],input[type="number"]:focus {
+  /* Focus border color (Vibrant Purple/Pink) */
+  border-color: #e599ff;
+  /* Focus glow (Purple transparent) */
+  box-shadow: 0 0 8px rgba(255, 77, 255, 0.4);
+}
+
+/* ====== BUTTONS ====== */
+button, input[type="submit"] {
+  border: none;
+  /* Primary button color (Dark Purple) */
+  background:#8000ff ;
+  /* Button text color (Set to white) */
+  color:#ffffff ;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+button:hover, input[type="submit"]:hover {
+  /* Button hover gradient (Purple to Pink) */
+  background: linear-gradient(90deg, #9933ff, #cc66ff);
+  transform: translateY(-1px);
+}
+
+
+.btn {
+  /* Secondary button background (Very Dark Purple) */
+  background: #4d0099;
+  /* Secondary button text color (Pale Purple) */
+  color: #c9a7ff;
+  /* Secondary button glow (Purple transparent) */
+  box-shadow: 0 0 8px rgba(255, 77, 255, 0.4);
+  /* Secondary button border (Light purple transparent) */
+  border: 1px solid rgba(200, 100, 255, 0.3);
+}
+/* ====== FOOTER ====== */
+footer {
+  margin-top: 60px;
+  text-align: center;
+  /* Footer text color (Medium Purple) */
+  color: #a653ff;
+  font-size: 0.9rem;
+}
+footer a {
+  /* Footer link color (Vibrant Purple/Pink) */
+  color: #e599ff;
+}
+footer a:hover {
+  /* Footer link hover (Lighter Purple/Pink) */
+  color: #f7b3ff;
+}
+
+/* ====== RESPONSIVE ====== */
+@media screen and (max-width: 600px) {
+  .container {
+    margin: 40px 20px;
+    padding: 30px 25px;
+  }
+  input[type="text"], input[type="password"] {
+    width: 100%;
+  }
+}
+
+/* ====== Main menu ====== */
+
+
+.modal-body,.modal-header, .modal-footer {
+  /* Modal background (Dark Purple gradient) */
+  background: linear-gradient(90deg, #220d33, #3a1a4f);
+  color: #fffefe!important;
+}
+
+.panel-body,.panel-heading {
+  /* Panel body background (Dark Purple gradient) */
+  background: linear-gradient(90deg, #220d33, #3a1a4f);
+  color: #fffefe!important;
+}
+
+.matchboxempty {
+  color: #fff!important;
+}
+
+.panel-panel-default {
+  width: 150px!important;
+}

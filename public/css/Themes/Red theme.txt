@@ -1,0 +1,223 @@
+/* ====== GLOBAL ====== */
+body {
+  padding-top: 60px;
+  /* Dark background with red glow (Darker red/black) */
+  background: radial-gradient(circle at 50% 10%, #1a0505, #080000 80%);
+  /* Primary highlight/accent color (Vivid Red) */
+  color: #e80f0f;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+a {
+  /* Main link color (Soft Red) */
+  color: #ff5c5c;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  /* Link hover color (Lighter Red/Pink) */
+  color: #ff8888;
+}
+
+/* ====== HEADER ====== */
+.navbar-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  /* Navbar background (Dark red gradient) */
+  background: linear-gradient(90deg, #330a0a, #521414);
+  /* Border with red transparency */
+  border-bottom: 1px solid rgba(255, 70, 70, 0.4);
+  /* Red glow effect */
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+  padding: 15px 25px;
+}
+
+.navbar-brand {
+  font-weight: 800;
+  /* Navbar brand color (Soft Red) */
+  color: #ff5c5c !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+}
+
+body {
+  padding-top: 80px;
+  /* Background repeated for clarity, but already set above */
+  background: radial-gradient(circle at 50% 10%, #1a0505, #080000 80%);
+  /* Default text color (Off-white) */
+  color: #fff0f0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+
+.navbar, .navbar-default {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+/* ====== LOGIN CONTAINER ====== */
+
+.lead {
+  color: #fffefe!important; /* Pure white lead text */
+}
+
+.jumbotron {
+  /* Jumbotron background (Dark red gradient) */
+  background: linear-gradient(90deg, #330a0a, #521414);
+  /* Red glow effect */
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+  padding: 0 !important;
+  color: #fffefe;
+}
+.container {
+  max-width: 900px;
+  margin: 80px auto;
+  /* Container background (Dark red transparent) */
+  background: rgba(40, 10, 10, 0.85);
+  /* Border with red transparency */
+  border: 1px solid rgba(255, 70, 70, 0.3);
+  /* Stronger red glow */
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 40px 50px;
+  text-align: center;
+}
+
+.container h1 {
+  font-size: 2rem;
+  /* Heading color (Soft Red) */
+  color: #ff5c5c;
+  margin-bottom: 20px;
+}
+
+.container p {
+  /* Subtle text color (Red transparent) */
+  color: rgba(255, 0, 0, 0.3);
+  font-size: 1rem;
+  margin-bottom: 25px;
+}
+
+#loginUsername,
+#loginCode,#LoginWithCode {
+  /* Input background (Red transparent) */
+  background: rgba(255, 0, 0, 0.3);
+}
+
+.container img {
+  margin: 15px 0;
+}
+
+/* ====== INPUT FIELDS ====== */
+input[type="text"], input[type="email"],input[type="number"] {
+  /* Input field background (Darker red transparent) */
+  background-color: rgba(104, 22, 22, 0.9);
+  /* Input border (Light red transparent) */
+  border: 1px solid rgba(255, 100, 100, 0.3);
+  /* Input text color (Medium Red) */
+  color: #eb2f2f;
+  padding: 8px 12px;
+  border-radius: 6px;
+  outline: none;
+  width: 200px;
+  margin: 5px;
+}
+
+input[type="text"],input[type="number"]::placeholder {
+  /* Placeholder color (Pale Red) */
+  color: #fe7575;
+}
+input[type="text"],input[type="number"]:focus {
+  /* Focus border color (Soft Red) */
+  border-color: #ff5c5c;
+  /* Focus glow (Red transparent) */
+  box-shadow: 0 0 8px rgba(255, 77, 77, 0.4);
+}
+
+/* ====== BUTTONS ====== */
+button, input[type="submit"] {
+  border: none;
+  /* Primary button color (Vivid Red) */
+  background:#cc0000 ;
+  /* Button text color (Set to white for better contrast) */
+  color:#ffffff ;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+button:hover, input[type="submit"]:hover {
+  /* Button hover gradient (Red to Pink-Red) */
+  background: linear-gradient(90deg, #ff5555, #ff8888);
+  transform: translateY(-1px);
+}
+
+
+.btn {
+  /* Secondary button background (Darker Red) */
+  background: #7d0404;
+  /* Secondary button text color (Pale Red) */
+  color: #fe7575;
+  /* Secondary button glow (Red transparent) */
+  box-shadow: 0 0 8px rgba(255, 77, 77, 0.4);
+  /* Secondary button border (Light red transparent) */
+  border: 1px solid rgba(255, 100, 100, 0.3);
+}
+/* ====== FOOTER ====== */
+footer {
+  margin-top: 60px;
+  text-align: center;
+  /* Footer text color (Soft Red) */
+  color: #ff7a7a;
+  font-size: 0.9rem;
+}
+footer a {
+  /* Footer link color (Soft Red) */
+  color: #ff5c5c;
+}
+footer a:hover {
+  /* Footer link hover (Lighter Red) */
+  color: #ff8888;
+}
+
+/* ====== RESPONSIVE ====== */
+@media screen and (max-width: 600px) {
+  .container {
+    margin: 40px 20px;
+    padding: 30px 25px;
+  }
+  input[type="text"], input[type="password"] {
+    width: 100%;
+  }
+}
+
+/* ====== Main menu ====== */
+
+
+.modal-body,.modal-header, .modal-footer {
+  /* Modal background (Dark red gradient) */
+  background: linear-gradient(90deg, #330a0a, #521414);
+  color: #fffefe!important;
+}
+
+.panel-body,.panel-heading {
+  /* Panel body background (Dark red gradient) */
+  background: linear-gradient(90deg, #330a0a, #521414);
+  color: #fffefe!important;
+}
+
+.matchboxempty {
+  color: #fff!important;
+}
+
+.panel-panel-default {
+  width: 150px!important;
+}

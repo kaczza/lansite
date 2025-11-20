@@ -6,6 +6,7 @@
 var crypto = require('crypto');
 
 var Box = require('./shared/Box');
+var Config = require('../config.js');
 var Dispatcher = require('./shared/Dispatcher');
 
 VoteBox.prototype = Object.create(Box.prototype);
@@ -65,12 +66,21 @@ VoteBox.prototype.addResponseListeners = function(socket, stream) {
 
 	//sent when client adds a custom choice in the bottom box in this vote box
 	this.addRequestListener('voteaddchoice', socket, stream, function(user, data) {
-		var choiceName = data.choiceName;
-		stream.requestManager.addRequest(user, 'wants to add ' + choiceName + ' to the vote', function() {
-			self.addChoice(data.choiceName);
-			Dispatcher.sendUpdatedBoxToAll(self, stream.users);
-		}, function() {});
-	});
+    var choiceName = data.choiceName;
+    
+    if (Config.requireAdminForAddVote) {
+
+        stream.requestManager.addRequest(user, 'wants to add "' + choiceName + '" to the vote', function() {
+            self.addChoice(choiceName);
+            Dispatcher.sendUpdatedBoxToAll(self, stream.users);
+        }, function() {});
+    } else {
+
+        self.choices.push(new VoteBoxChoice(choiceName.trim()));
+        Dispatcher.sendUpdatedBoxToAll(self, stream.users);
+    }
+});
+
 }
 
 VoteBox.prototype.addChoices = function(choicesArray){

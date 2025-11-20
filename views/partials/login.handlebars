@@ -1,35 +1,67 @@
 <div class="jumbotron">
+    <style>
+        .lead { color: white; }
+        #loginMessage {
+            color: #FF6666; 
+            margin-top: 10px;
+            font-weight: 600;
+        }
+    </style>
     <h1>Welcome to the LAN</h1>
-    <p class="lead">Sign in with your Steam account to get started.</p>
-    <p>
-        <a href="/auth/steam"><img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_large_noborder.png" alt="Sign in using Steam"></a>
-    </p>
-    <br/>
-    <p class="lead">Or, if you were given a code, use it to sign in.</p>
-    <p>
-      <div class="form-inline">
-        <div class="form-group">
-          <label for="loginUsername">Username</label>
-          <input type="text" class="form-control" id="loginUsername" maxlength="24">
-        </div>
-        <div class="form-group">
-          <label for="loginCode">Code</label>
-          <input type="email" class="form-control" id="loginCode" placeholder="ex. ababa" size="8" maxlength="5">
-        </div>
-        <button type="submit" class="btn btn-default" onclick="loginWithCode()">Sign in</button>
-      </div>
-      <script>
-      function loginWithCode() {
-          var username = $('#loginUsername').val().trim();
-          var code = $('#loginCode').val().trim();
+    
+    <div id="steam-login" style="display: none;">
+        <p class="lead">Jelentkezz be a Steam fiókoddal!</p>
+        <p>
+            <a href="/auth/steam"><img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_large_noborder.png" alt="Sign in using Steam"></a>
+        </p>
+    </div>
+    
+    <div id="code-login" style="display: none;">
+        <p class="lead">Jelentkezz be a kapott code-dal!</p>
+        <br/>
+        <p class="lead">Ha nem megy akkor csak kiálts hogy "susi szar az oldalad!!!"</p>
+        <p>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label for="loginCode">Code</label>
+                    <input type="text" class="form-control" id="loginCode" placeholder="pl. AB123" maxlength="5">
+                </div>
+                <button type="submit" class="btn btn-default" onclick="loginWithCode()">Sign in</button>
+            </div>
+            <div id="loginMessage"></div>
+        </p>
+    </div>
 
-          //if code is blank, attempt dev loginCode
-          if (code === '') {
-              window.location.href = '/devlogin?username=' + username;
-          } else {
-              window.location.href = '/login?username=' + username + '&code=' + code;
-          }
-      }
-      </script>
-    </p>
+    
+ <script>
+document.addEventListener('DOMContentLoaded', async () => {
+    const steamLogin = document.getElementById('steam-login');
+    const codeLogin = document.getElementById('code-login');
+
+    const response = await fetch('/api/config');
+    const data = await response.json(); // data.LoginWithCode -> true/false
+
+    if (data.LoginWithCode === true) {
+        if (codeLogin) codeLogin.style.display = 'block';
+        if (steamLogin) steamLogin.style.display = 'none';
+    } else {
+        if (codeLogin) codeLogin.style.display = 'none';
+        if (steamLogin) steamLogin.style.display = 'block';
+    }
+});
+
+function loginWithCode() {
+    var code = document.getElementById('loginCode').value.trim();
+    var messageElement = document.getElementById('loginMessage');
+
+    if (!code) {
+        messageElement.textContent = 'Kérlek, add meg a kódot!';
+        return;
+    }
+
+    messageElement.textContent = '';
+    window.location.href = '/login?code=' + encodeURIComponent(code);
+}
+</script>
+
 </div>

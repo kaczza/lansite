@@ -1,0 +1,223 @@
+/* ====== GLOBAL ====== */
+body {
+  padding-top: 60px;
+  /* Dark background with green glow (Darker green/black) */
+  background: radial-gradient(circle at 50% 10%, #051a05, #000800 80%);
+  /* Primary highlight/accent color (Vivid Green) */
+  color: #0fe80f;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+a {
+  /* Main link color (Soft Green/Lime) */
+  color: #5cff5c;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  /* Link hover color (Lighter Green) */
+  color: #88ff88;
+}
+
+/* ====== HEADER ====== */
+.navbar-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  /* Navbar background (Dark green gradient) */
+  background: linear-gradient(90deg, #0a330a, #145214);
+  /* Border with green transparency */
+  border-bottom: 1px solid rgba(70, 255, 70, 0.4);
+  /* Green glow effect */
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+  padding: 15px 25px;
+}
+
+.navbar-brand {
+  font-weight: 800;
+  /* Navbar brand color (Soft Green/Lime) */
+  color: #5cff5c !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+}
+
+body {
+  padding-top: 80px;
+  /* Background repeated for clarity, but already set above */
+  background: radial-gradient(circle at 50% 10%, #051a05, #000800 80%);
+  /* Default text color (Off-white/light green tint) */
+  color: #f0fff0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+
+.navbar, .navbar-default {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+/* ====== LOGIN CONTAINER ====== */
+
+.lead {
+  color: #fffefe!important; /* Pure white lead text */
+}
+
+.jumbotron {
+  /* Jumbotron background (Dark green gradient) */
+  background: linear-gradient(90deg, #0a330a, #145214);
+  /* Green glow effect */
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+  padding: 0 !important;
+  color: #fffefe;
+}
+.container {
+  max-width: 900px;
+  margin: 80px auto;
+  /* Container background (Dark green transparent) */
+  background: rgba(10, 40, 10, 0.85);
+  /* Border with green transparency */
+  border: 1px solid rgba(70, 255, 70, 0.3);
+  /* Stronger green glow */
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+  border-radius: 10px;
+  padding: 40px 50px;
+  text-align: center;
+}
+
+.container h1 {
+  font-size: 2rem;
+  /* Heading color (Soft Green/Lime) */
+  color: #5cff5c;
+  margin-bottom: 20px;
+}
+
+.container p {
+  /* Subtle text color (Green transparent) */
+  color: rgba(0, 255, 0, 0.3);
+  font-size: 1rem;
+  margin-bottom: 25px;
+}
+
+#loginUsername,
+#loginCode,#LoginWithCode {
+  /* Input background (Green transparent) */
+  background: rgba(0, 255, 0, 0.3);
+}
+
+.container img {
+  margin: 15px 0;
+}
+
+/* ====== INPUT FIELDS ====== */
+input[type="text"], input[type="email"],input[type="number"] {
+  /* Input field background (Darker green transparent) */
+  background-color: rgba(22, 104, 22, 0.9);
+  /* Input border (Light green transparent) */
+  border: 1px solid rgba(100, 255, 100, 0.3);
+  /* Input text color (Medium Green) */
+  color: #2feb2f;
+  padding: 8px 12px;
+  border-radius: 6px;
+  outline: none;
+  width: 200px;
+  margin: 5px;
+}
+
+input[type="text"],input[type="number"]::placeholder {
+  /* Placeholder color (Pale Green) */
+  color: #75fe75;
+}
+input[type="text"],input[type="number"]:focus {
+  /* Focus border color (Soft Green/Lime) */
+  border-color: #5cff5c;
+  /* Focus glow (Green transparent) */
+  box-shadow: 0 0 8px rgba(77, 255, 77, 0.4);
+}
+
+/* ====== BUTTONS ====== */
+button, input[type="submit"] {
+  border: none;
+  /* Primary button color (Vivid Green) */
+  background:#00cc00 ;
+  /* Button text color (Set to white for better contrast) */
+  color:#ffffff ;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+button:hover, input[type="submit"]:hover {
+  /* Button hover gradient (Green to Light Green) */
+  background: linear-gradient(90deg, #55ff55, #88ff88);
+  transform: translateY(-1px);
+}
+
+
+.btn {
+  /* Secondary button background (Darker Green) */
+  background: #047d04;
+  /* Secondary button text color (Pale Green) */
+  color: #75fe75;
+  /* Secondary button glow (Green transparent) */
+  box-shadow: 0 0 8px rgba(77, 255, 77, 0.4);
+  /* Secondary button border (Light green transparent) */
+  border: 1px solid rgba(100, 255, 100, 0.3);
+}
+/* ====== FOOTER ====== */
+footer {
+  margin-top: 60px;
+  text-align: center;
+  /* Footer text color (Soft Green) */
+  color: #7aff7a;
+  font-size: 0.9rem;
+}
+footer a {
+  /* Footer link color (Soft Green/Lime) */
+  color: #5cff5c;
+}
+footer a:hover {
+  /* Footer link hover (Lighter Green) */
+  color: #88ff88;
+}
+
+/* ====== RESPONSIVE ====== */
+@media screen and (max-width: 600px) {
+  .container {
+    margin: 40px 20px;
+    padding: 30px 25px;
+  }
+  input[type="text"], input[type="password"] {
+    width: 100%;
+  }
+}
+
+/* ====== Main menu ====== */
+
+
+.modal-body,.modal-header, .modal-footer {
+  /* Modal background (Dark green gradient) */
+  background: linear-gradient(90deg, #0a330a, #145214);
+  color: #fffefe!important;
+}
+
+.panel-body,.panel-heading {
+  /* Panel body background (Dark green gradient) */
+  background: linear-gradient(90deg, #0a330a, #145214);
+  color: #fffefe!important;
+}
+
+.matchboxempty {
+  color: #fff!important;
+}
+
+.panel-panel-default {
+  width: 150px!important;
+}

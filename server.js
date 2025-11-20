@@ -1,19 +1,10 @@
-//
-//  Lansite Server
-//  By Tanner Krewson
-//
-
-//
-//  INITIAL SETUP
-//
-
-//requires
 var crypto = require('crypto');
 var readline = require('readline');
 var express = require('express');
 var socketio = require('socket.io');
 var app = express();
-
+const { getUsernameByCode, addCode, codes } = require('./codes');
+var favicon = require('serve-favicon');
 var passport = require('passport');
 var SteamStrategy = require('passport-steam').Strategy;
 
@@ -22,26 +13,29 @@ var Config;
 try {
     Config = require('./config.js');
 } catch (e) {
-    console.log('Failed to load config.js');
-    console.log('Make sure you copied and rename config.template.js to config.js');
+    console.log('\x1b[31m%s\x1b[0m', 'Failed to load config.js'); // red
+    console.log('\x1b[33m%s\x1b[0m', 'Make sure you copied and renamed config.template.js to config.js'); // yellow
     process.exit(1);
 }
 
 var Box = require('./boxes/shared/Box');
 var Dispatcher = require('./boxes/shared/Dispatcher');
 
-if (!Config.offlineMode) {
-  try {
-      //checks to see if the user has changed their Steam API key
-      if (Config.steamAPIKey.length !== 32 || Config.steamAPIKey !== Config.steamAPIKey.replace(/\W/g, '')) {
-          throw err;
-      }
-  } catch (e) {
-      console.log('Invalid Steam API key');
-      console.log('Please add your Steam API key to config.js');
-      console.log('or enable offline mode in config.js');
-      process.exit(1);
-  }
+//SteamAPI Checking 
+if (!Config.LoginWithCode && !Config.offlineMode) {
+    try {
+        if (
+            Config.steamAPIKey.length !== 32 ||
+            Config.steamAPIKey !== Config.steamAPIKey.replace(/\W/g, '')
+        ) {
+            throw new Error("invalid");
+        }
+    } catch (e) {
+        console.log('\x1b[31m%s\x1b[0m', 'Invalid Steam API key'); // red
+        console.log('\x1b[33m%s\x1b[0m', 'Please add your Steam API key to config.js'); // yellow
+        console.log('\x1b[36m%s\x1b[0m', 'or enable "offline mode" or "Login with code" in config.js'); // cyan
+        process.exit(1);
+    }
 }
 
 
@@ -72,12 +66,8 @@ var hbs = require('express-handlebars').create({
 });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
-
-
-//express stuff
 app.use(express.static(__dirname + '/public'));
 
-//passport setup
 app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(function(user, done) {
@@ -88,35 +78,74 @@ passport.deserializeUser(function(obj, done) {
     done(null, obj);
 });
 
-//url mapping
-app.get('/', exposeTemplates, function(req, res) {
+let clockMode = false;
+
+
+app.use((req, res, next) => {
+  if (clockMode && req.path !== '/clockmode' && !req.path.startsWith('/clockmode/')) {
+    return res.redirect('/clockmode');
+  }
+  next();
+});
+
+// Clockmode toggle command
+app.get('/clockmode/:state', (req, res) => {
+  const state = req.params.state.toLowerCase();
+  if (state === 'on') {
+    clockMode = true;
+    console.log('Clockmode: ON');
+    return res.redirect('/clockmode');
+  }
+  if (state === 'off') {
+    clockMode = false;
+    console.log('Clockmode: OFF');
+    return res.redirect('/main');
+  }
+  res.status(400).send('Usage: clockmode/[on|off]');
+});
+
+
+app.get('/clockmode', exposeTemplates, function (req, res) {
+  res.render('clockmode', {
+    layout: 'nonstream'
+  });
+});
+
+// Normál oldalak
+app.get('/', exposeTemplates, function (req, res) {
   res.render('home', {
-      layout: 'nonstream'
+    layout: 'nonstream'
   });
 });
 
-app.get('/main', exposeTemplates, function(req, res) {
+app.get('/main', exposeTemplates, function (req, res) {
   res.render('main', {
-      layout: 'stream'
+    layout: 'stream'
   });
 });
 
-app.get('/admin', exposeTemplates, function(req, res) {
-    res.render('admin', {
-        layout: 'stream'
+app.get('/admin', exposeTemplates, function (req, res) {
+  res.render('admin', {
+    layout: 'stream'
+  });
+});
+
+app.get('/api/config', (req, res) => {
+    res.json({
+        LoginWithCode: Config.LoginWithCode
     });
 });
 
+app.get('/stream', (req, res) => {
+  res.render('stream', { videoId: 'ukHo-c7jbH0' });
+});
 
 
 //start server
 var io = socketio.listen(app.listen(Config.port, function() {
-    console.log('Lansite is now running on port ' + Config.port + '. Type "stop" to close.');
+    console.log('\x1b[32m%s\x1b[0m', 'Lansite is now running on localhost:' + Config.port + '. Type "stop" to close.');
 }));
 
-
-// sends the box and popup templates to the page
-// TODO: Figure out how to precompile these template, or whatever
 function exposeTemplates(req, res, next) {
     hbs.getTemplates('templates/').then(function(templates) {
 
@@ -206,7 +235,7 @@ Stream.prototype.sendBox = function(uniqueOfBoxToSend, reqMan) {
         //sends the box to everyone
         Dispatcher.sendNewBoxToAll(boxToSend, this.users);
     } else {
-        console.log('Send box failed: Box does not exist in this stream');
+        console.log('\x1b[31m%s\x1b[0m', 'Send box failed: Box does not exist in this stream');
     }
 };
 
@@ -353,22 +382,16 @@ Stream.prototype.initializeSteamLogin = function() {
         });
     }
 
-    //bypass steam login in case someone can't login to steam
-    app.get('/login', function(req, res) {
-        // http://localhost:port/login?code=CODEHERE&username=NAMEHERE
+    app.get('/login', (req, res) => {
+    const code = req.query.code;
+    if (!code) return res.send('Add meg a kódot!');
 
-        //check to see if the login code is valid
-        if (self.users.loginUsingCode(req.query.code)){
-            //login successful
-            req.user = {
-                displayName: req.query.username
-            };
-            LoginSuccessHandler(req, res, self);
-        } else {
-            res.send('Login failed');
-        }
-    });
+    const username = getUsernameByCode(code);
+    if (!username) return res.send('Login failed: invalid code');
 
+    req.user = { displayName: username };
+    LoginSuccessHandler(req, res, mainStream);
+});
     //pretty sure this is useless
     app.get('/logout', function(req, res) {
         req.logout();
@@ -537,29 +560,36 @@ Users.prototype.getOnlineOppedUsers = function() {
     return result;
 }
 
-Users.prototype.generateLoginCode = function() {
+Users.prototype.generatecode = function(username) {
+    if (!username || typeof username !== 'string' || username.trim() === '') {
+       console.log('\x1b[33m%s\x1b[0m', '[Info]The username is incorrect or missing.'); // sárga szín
 
-    //length of the login code
+        return null;
+    }
+
+    // hossz beállítása
     const codeLength = 5;
+    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123457890";
 
-    function makeid()
-    {
-        var text = "";
-        var possible = "abcdefghijklmnopqrstuvwxyz";
-
-        for( var i=0; i < codeLength; i++ )
+    function makeid() {
+        let text = "";
+        for (let i = 0; i < codeLength; i++) {
             text += possible.charAt(Math.floor(Math.random() * possible.length));
-
+        }
         return text;
     }
 
-    var code;
+    // generáljunk egyedi kódot, ami még nincs használatban
+    let code;
     do {
         code = makeid();
-    }
-    while (this.loginCodeIndex(code) !== -1);
+    } while (codes.hasOwnProperty(code));
 
-    this.loginCodes.push(code);
+    // hozzáadjuk a codes.js rendszerhez és elmentjük a JSON fájlba
+    addCode(code, username);
+
+   console.log('\x1b[36m%s\x1b[0m', `[Info] New code created: ${code} -> ${username}`); // cián szín
+
     return code;
 }
 
@@ -652,26 +682,52 @@ Console.addListeners = function(stream) {
                 stream.addBoxAndSend(new BoxObjects[boxName](data));
             }
         }
-        else if (line.toLowerCase().startsWith('op ')) {
-          var lineArr = line.split(' ');
-          var id = lineArr[1].toLowerCase();
+    else if (line.toLowerCase().startsWith('op ')) {
+        var lineArr = line.split(' ');
+        var code = lineArr[1].trim().toUpperCase();
 
-          var userToOp = stream.users.findUser(id);
-          if (userToOp) {
+        const username = getUsernameByCode(code);
+
+        if (!username) {
+          console.log('\x1b[31m%s\x1b[0m', `[Error] Incorrect code: ${code}`); 
+            return;
+        }
+
+        let userToOp = stream.users.list.find(u => u.username.toLowerCase() === username.toLowerCase() ||
+                                                (u.steamInfo && u.username.toLowerCase() === username.toLowerCase()));
+
+        if (userToOp) {
             userToOp.op();
             Dispatcher.sendUserListToAll(stream.users);
-          }
+            console.log('\x1b[36m%s\x1b[0m', `[Info] ${userToOp.username} OP status is turned on for ${code}.`); 
+        } else {
+           console.log('\x1b[31m%s\x1b[0m', `[Error] Username isnt found: ${username} (code: ${code})`); 
         }
-        else if (line.toLowerCase().startsWith('deop ')) {
-          var lineArr = line.split(' ');
-          var id = lineArr[1].toLowerCase();
+    } 
+    else if (line.toLowerCase().startsWith('deop ')) {
+        var lineArr = line.split(' ');
+        var code = lineArr[1].trim().toUpperCase();
 
-          var userToDeop = stream.users.findUser(id);
-          if (userToDeop) {
+        const username = getUsernameByCode(code);
+
+        if (!username) {
+           console.log('\x1b[31m%s\x1b[0m', `[Error] Invalid or non-existent code: ${code}`);
+            return;
+        }
+
+        let userToDeop = stream.users.list.find(u => u.username.toLowerCase() === username.toLowerCase() ||
+                                                    (u.steamInfo && u.username.toLowerCase() === username.toLowerCase()));
+
+        if (userToDeop) {
             userToDeop.deop();
             Dispatcher.sendUserListToAll(stream.users);
-          }
+           console.log('\x1b[36m%s\x1b[0m', `[Info] ${userToDeop.username} OP status revoked (code: ${code}).`);
+        } else {
+            console.log('\x1b[31m%s\x1b[0m', `[Error] User not found: ${username} (code: ${code})`);
         }
+    }
+
+
         //static commands
         else if (line.toLowerCase() === "help") {
           console.log('');
@@ -688,14 +744,12 @@ Console.addListeners = function(stream) {
           });
 
           commandList.push('help');
-          commandList.push('view codes');
-          commandList.push('view users');
-          commandList.push('view boxes');
-          commandList.push('view requests');
           commandList.push('stop');
-          commandList.push('generatelogincode');
-          commandList.push('op [user id here]');
-          commandList.push('deop [user id here]');
+          commandList.push('yt [play[url] | stop]');
+          commandList.push('clockmode [ON | OFF]');
+          commandList.push('generatecode [userename]');
+          commandList.push('op [code/ userid here]');
+          commandList.push('deop [code/ userid here]');
 
           commandList.sort();
 
@@ -718,34 +772,95 @@ Console.addListeners = function(stream) {
           } else if (cmd === "requests") {
               console.log(stream.requestManager.getRequests());
           } else {
-            console.log('Invalid view command. Type "help" for a list of commands.');
+            console.log('\x1b[33m%s\x1b[0m', 'Invalid view command. Type "help" for a list of commands.');
           }
         }
         else if (line.toLowerCase() === "stop") {
             process.exit();
-        }
-        else if (line.toLowerCase() === "generatelogincode") {
-            console.log('');
-            console.log('One-time use code:')
-            var loginCode = stream.users.generateLoginCode();
-            console.log(loginCode);
-            console.log('');
-            console.log('Example usage:');
-            console.log('http://localhost:port/login?code=' + loginCode + '&username=NAMEHERE');
-            console.log('');
-        }
-        else if (line.toLowerCase().startsWith('pm ')) {
-            if (line.toLowerCase() === 'pm on') {
-              stream.enablePrivateMessaging();
-            } else if (line.toLowerCase() === 'pm off'){
-              stream.disablePrivateMessaging();
+        }  
+        else if (line.toLowerCase().startsWith("yt ")) {
+            const args = line.trim().split(" ");
+            const cmd = args[1];
+            const url = args[2];
+
+            if (cmd === "play" && url) {
+                io.emit("yt", { action: "play", url: url });
+                console.log("YT play:", url);
+            } else if (cmd === "stop") {
+                io.emit("yt", { action: "stop" });
+                console.log("YT stop");
+            } else {
+                console.log('Használat: yt play [url] | yt stop');
             }
         }
-        else {
-          console.log('');
-          console.log('Invalid command. Type "help" for a list of commands.');
-          console.log('');
+        else if (line.toLowerCase().startsWith("clockmode ")) {
+            const args = line.trim().split(" ");
+            const state = args[1] ? args[1].toLowerCase() : null;
+
+            if (state === "on") {
+                clockMode = true;
+                console.log("Clockmode bekapcsolva (ON)");
+            } else if (state === "off") {
+                clockMode = false;
+                console.log("Clockmode kikapcsolva (OFF)");
+            } else {
+                console.log("Használat: clockmode [on|off]");
+            }
         }
+        else if (line.toLowerCase().startsWith("generatecode ")) {
+            const username = line.substring("generatecode ".length).trim();
+            if (!username) {
+                console.log('\x1b[31m[Error] Hibás vagy hiányzó username.\x1b[0m');
+                return;
+            }
+
+            const codeLength = 5;
+            const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            function makeid() {
+                let text = "";
+                for (let i = 0; i < codeLength; i++) {
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+                }
+                return text;
+            }
+
+            let code;
+            do {
+                code = makeid();
+            } while (codes.hasOwnProperty(code));
+
+            addCode(code, username); 
+
+            try {
+                delete require.cache[require.resolve('./codes')];
+                global.codes = require('./codes').codes;
+                console.log('\x1b[36m%s\x1b[0m', '[Info] codes.json reloaded.');
+            } catch (err) {
+                console.error('\x1b[31m%s\x1b[0m', '[Error] Failed to reload codes.json:', err);
+            }
+
+            console.log(`\x1b[32m[Info]\x1b[0m New code created: \x1b[36m${code}\x1b[0m -> \x1b[33m${username}\x1b[0m`);
+        }
+        else if (line.toLowerCase() === "view codes") {
+                console.log("Current reusable codes:");
+                Object.keys(codes).forEach(code => {
+                    console.log(`${code} -> ${codes[code]}`);
+                });
+            }
+
+            else if (line.toLowerCase().startsWith('pm ')) {
+                if (line.toLowerCase() === 'pm on') {
+                stream.enablePrivateMessaging();
+                } else if (line.toLowerCase() === 'pm off'){
+                stream.disablePrivateMessaging();
+                }
+            }
+            else {
+            console.log('');
+            console.log('Invalid command. Type "help" for a list of commands.');
+            console.log('');
+            }
     });
 }
 
@@ -889,7 +1004,7 @@ Request.prototype.denyRequest = function(){
 
 var mainStream = new Stream(false);
 mainStream.addBox(new BoxObjects['matchbox']());
-mainStream.addBox(new BoxObjects['connect4box']());
+mainStream.addBox(new BoxObjects['eventbox']());
 Console.addListeners(mainStream);
 mainStream.initializeSteamLogin();
 
@@ -907,7 +1022,7 @@ io.on('connection', function(socket) {
         var user = mainStream.users.connectUser(msg.id, msg.secret, socket);
 
         if (user) {
-            console.log('User successfully validated');
+            console.log('\x1b[32m%s\x1b[0m', 'User successfully validated');
 
             //check to see if we should set the user to OP
             if (Config.autoOPFirstUser && mainStream.users.list.length === 1) {
@@ -933,7 +1048,7 @@ io.on('connection', function(socket) {
             });
 
         } else {
-            console.log('User validation unsuccessful');
+            console.log('\x1b[31m%s\x1b[0m', 'User validation unsuccessful');
 
             //send them back to the homepage to try again
             socket.emit('failed');

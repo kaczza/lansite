@@ -1,0 +1,228 @@
+/*
+ * LAN PARTY SITE CSS - OLDSCHOOL TERMINAL THEME REDESIGN
+ * Deep purple/magenta palette replaced with a dark blue/gray base and neon green accents (Terminal Look).
+ */
+
+/* ====== GLOBAL ====== */
+body {
+  padding-top: 60px;
+  /* Sötét, ipari háttér, mélykék ragyogással */
+  background: radial-gradient(circle at 50% 10%, #0A192A, #000000 80%);
+  /* Elsődleges kiemelő szín (Neon Zöld) */
+  color: #33FF33;
+  font-family: 'Inter', 'Segoe UI', sans-serif; /* Marad a modern betűtípus, de lehetne Monospace is */
+  margin: 0;
+}
+
+a {
+  /* Fő link szín (Zöld) */
+  color: #00CC00;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  /* Link hover szín (Világos Neon Zöld) */
+  color: #66FF66;
+}
+
+/* ====== HEADER ====== */
+.navbar-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  /* Navbar háttér (Sötét, ipari kék/szürke) */
+  background: linear-gradient(90deg, #102030, #20354A);
+  /* Határozott él, zöld neon árnyalat */
+  border-bottom: 1px solid rgba(0, 204, 0, 0.4);
+  /* Neon zöld árnyék effekt */
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  padding: 15px 25px;
+}
+
+.navbar-brand {
+  font-weight: 800;
+  /* Navbar márka színe (Neon Zöld) */
+  color: #00FF00 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+}
+
+body {
+  padding-top: 80px;
+  /* Háttér megismétlése a konzisztencia érdekében */
+  background: radial-gradient(circle at 50% 10%, #0A192A, #000000 80%);
+  /* Alapértelmezett szövegszín (Világos szürke/fehér) */
+  color: #f0f0f0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  margin: 0;
+}
+
+
+.navbar, .navbar-default {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+/* ====== LOGIN CONTAINER ====== */
+
+.lead {
+  color: #fffefe!important; /* Tiszta fehér szöveg */
+}
+
+.jumbotron {
+  /* Jumbotron háttér (Sötét kék/szürke) */
+  background: linear-gradient(90deg, #102030, #20354A);
+  /* Neon zöld árnyék effekt */
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  padding: 0 !important;
+  color: #fffefe;
+}
+.container {
+  max-width: 900px;
+  margin: 80px auto;
+  /* Konténer háttér (Sötét kék áttetsző) */
+  background: rgba(20, 30, 40, 0.9);
+  /* Erős, határozott zöld keret */
+  border: 1px solid #00CC00;
+  /* Erősebb neon ragyogás */
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+  border-radius: 10px;
+  padding: 40px 50px;
+  text-align: center;
+}
+
+.container h1 {
+  font-size: 2rem;
+  /* Cím színe (Neon Zöld) */
+  color: #00FF00;
+  margin-bottom: 20px;
+}
+
+.container p {
+  /* Halvány szövegszín (Zöld áttetsző) */
+  color: rgba(0, 255, 0, 0.3);
+  font-size: 1rem;
+  margin-bottom: 25px;
+}
+
+#loginUsername,
+#loginCode,#LoginWithCode {
+  /* Input háttér (Zöld áttetsző) */
+  background: rgba(0, 255, 0, 0.15);
+}
+
+.container img {
+  margin: 15px 0;
+}
+
+/* ====== INPUT FIELDS ====== */
+input[type="text"], input[type="email"],input[type="number"] {
+  /* Input mező háttér (Sötét kék/szürke) */
+  background-color: rgba(25, 45, 65, 0.9);
+  /* Input keret (Zöld keret) */
+  border: 1px solid #00CC00;
+  /* Input szövegszín (Világos Zöld) */
+  color: #66FF66;
+  padding: 8px 12px;
+  border-radius: 6px;
+  outline: none;
+  width: 200px;
+  margin: 5px;
+}
+
+input[type="text"],input[type="number"]::placeholder {
+  /* Placeholder szín (Sötétebb Zöld) */
+  color: #00AA00;
+}
+input[type="text"],input[type="number"]:focus {
+  /* Fókusz keret színe (Neon Zöld) */
+  border-color: #00FF00;
+  /* Fókusz ragyogás */
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+}
+
+/* ====== BUTTONS ====== */
+button, input[type="submit"] {
+  border: none;
+  /* Elsődleges gomb szín (Sötét Zöld) */
+  background:#006600 ;
+  /* Gomb szövegszín (Fehér) */
+  color:#ffffff ;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+button:hover, input[type="submit"]:hover {
+  /* Gomb hover színátmenet (Sötét Zöldtől Világos Zöldig) */
+  background: linear-gradient(90deg, #009900, #33CC33);
+  transform: translateY(-1px);
+}
+
+
+.btn {
+  /* Másodlagos gomb háttér (Nagyon sötét kék/szürke) */
+  background: #182838;
+  /* Másodlagos gomb szövegszín (Világos Zöld) */
+  color: #66FF66;
+  /* Másodlagos gomb ragyogás (Neon zöld) */
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
+  /* Másodlagos gomb keret (Zöld keret) */
+  border: 1px solid #00CC00;
+}
+/* ====== FOOTER ====== */
+footer {
+  margin-top: 60px;
+  text-align: center;
+  /* Lábjegyzet szövegszín (Zöld) */
+  color: #00AA00;
+  font-size: 0.9rem;
+}
+footer a {
+  /* Lábjegyzet link szín (Zöld) */
+  color: #00CC00;
+}
+footer a:hover {
+  /* Lábjegyzet link hover (Világos Neon Zöld) */
+  color: #66FF66;
+}
+
+/* ====== RESPONSIVE ====== */
+@media screen and (max-width: 600px) {
+  .container {
+    margin: 40px 20px;
+    padding: 30px 25px;
+  }
+  input[type="text"], input[type="password"] {
+    width: 100%;
+  }
+}
+
+/* ====== Main menu ====== */
+
+
+.modal-body,.modal-header, .modal-footer {
+  /* Modal háttér (Sötét kék/szürke) */
+  background: linear-gradient(90deg, #102030, #20354A);
+  color: #fffefe!important;
+}
+
+.panel-body,.panel-heading {
+  /* Panel háttér (Sötét kék/szürke) */
+  background: linear-gradient(90deg, #102030, #20354A);
+  color: #fffefe!important;
+}
+
+.matchboxempty {
+  color: #fff!important;
+}
+
+.panel-panel-default {
+  width: 150px!important;
+}
