@@ -3,7 +3,7 @@
 **Lansite** is a simple, centralized web application designed for small LAN parties. It serves as an information hub for all attendees.
 
 <p align="center">
-  <img src="https://imgur.com/a/SCvyXK6" width="1912"/>
+  <img src="https://iili.io/f2jN3dX.th.png" width="1912"/>
 </p>
 
 ---
